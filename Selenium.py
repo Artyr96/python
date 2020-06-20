@@ -8,19 +8,25 @@ from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
 
-class UntitledTestCase(unittest.TestCase):
+class AppDynamicsJob(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        # AppDynamics will automatically override this web driver
+        # as documented in https://docs.appdynamics.com/display/PRO44/Write+Your+First+Script
+        self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(30)
         self.base_url = "https://www.google.com/"
         self.verificationErrors = []
         self.accept_next_alert = True
 
-    def test_untitled_test_case(self):
+    def test_app_dynamics_job(self):
         driver = self.driver
         driver.get(
-            "https://www.google.com/search?q=%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%87%D0%B8%D0%BA&oq=%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%87%D0%B8%D0%BA&aqs=chrome.0.69i59j0l4j69i61l3.2477j0j7&sourceid=chrome&ie=UTF-8")
+            "https://www.google.com/search?q=%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%87%D0%B8%D0%BA&oq=%D0%BF%D0%B5%D1%80%D0%B5&aqs=chrome.0.69i59j69i57j69i59j0l5.2101j0j8&sourceid=chrome&ie=UTF-8")
         driver.find_element_by_xpath("//div[@id='rso']/div[2]/div/div/a/h3").click()
+        driver.find_element_by_id("source").click()
+        driver.find_element_by_id("source").clear()
+        driver.find_element_by_id("source").send_keys(u"привет")
+        driver.find_element_by_xpath("//div/div[2]/div/div/div/div[2]/div/div/div[2]/div/div/div").click()
 
     def is_element_present(self, how, what):
         try:
@@ -49,7 +55,8 @@ class UntitledTestCase(unittest.TestCase):
             self.accept_next_alert = True
 
     def tearDown(self):
-        self.driver.quit()
+        # To know more about the difference between verify and assert,
+        # visit https://www.seleniumhq.org/docs/06_test_design_considerations.jsp#validating-results
         self.assertEqual([], self.verificationErrors)
 
 
