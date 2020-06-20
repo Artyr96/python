@@ -19,10 +19,8 @@ class UntitledTestCase(unittest.TestCase):
     def test_untitled_test_case(self):
         driver = self.driver
         driver.get(
-            "https://www.google.com/search?q=%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%87%D0%B8%D0%BA&oq=%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%87%D0%B8%D0%BA&aqs=chrome.0.69i59j0l5j46j69i61.4616j0j7&sourceid=chrome&ie=UTF-8")
+            "https://www.google.com/search?q=%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%87%D0%B8%D0%BA&oq=%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%87%D0%B8%D0%BA&aqs=chrome.0.69i59j0l4j69i61l3.2477j0j7&sourceid=chrome&ie=UTF-8")
         driver.find_element_by_xpath("//div[@id='rso']/div[2]/div/div/a/h3").click()
-        driver.find_element_by_xpath("//header[@id='gb']/div[2]/div/div").click()
-        driver.find_element_by_xpath("//li[@id='gbm:1']/a/span").click()
 
     def is_element_present(self, how, what):
         try:
