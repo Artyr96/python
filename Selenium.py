@@ -7,6 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
+
 class UntitledTestCase(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
@@ -14,30 +15,29 @@ class UntitledTestCase(unittest.TestCase):
         self.base_url = "https://www.google.com/"
         self.verificationErrors = []
         self.accept_next_alert = True
-    
+
     def test_untitled_test_case(self):
         driver = self.driver
-        driver.get("https://starkportal.solardigital.com.ua/login")
-        driver.find_element_by_name("username").click()
-        driver.find_element_by_name("username").clear()
-        driver.find_element_by_name("username").send_keys("Artur")
-        driver.find_element_by_xpath("//form[@action='https://starkportal.solardigital.com.ua/login']").click()
-        driver.find_element_by_xpath("//button[@type='submit']").click()
-        driver.find_element_by_xpath("//div[@id='app']/aside/div[2]/nav/ul/li[4]/button").click()
-        driver.find_element_by_link_text("Terminals").click()
-        driver.find_element_by_xpath("//div[@id='app']/aside/div[2]/div/div[2]/div/div/div/div").click()
-        driver.find_element_by_xpath("//button[@type='submit']").click()
-    
+        driver.get(
+            "https://www.google.com/search?q=%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%87%D0%B8%D0%BA&oq=%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%87%D0%B8%D0%BA&aqs=chrome.0.69i59j0l5j46j69i61.4616j0j7&sourceid=chrome&ie=UTF-8")
+        driver.find_element_by_xpath("//div[@id='rso']/div[2]/div/div/a/h3").click()
+        driver.find_element_by_xpath("//header[@id='gb']/div[2]/div/div").click()
+        driver.find_element_by_xpath("//li[@id='gbm:1']/a/span").click()
+
     def is_element_present(self, how, what):
-        try: self.driver.find_element(by=how, value=what)
-        except NoSuchElementException as e: return False
+        try:
+            self.driver.find_element(by=how, value=what)
+        except NoSuchElementException as e:
+            return False
         return True
-    
+
     def is_alert_present(self):
-        try: self.driver.switch_to_alert()
-        except NoAlertPresentException as e: return False
+        try:
+            self.driver.switch_to_alert()
+        except NoAlertPresentException as e:
+            return False
         return True
-    
+
     def close_alert_and_get_its_text(self):
         try:
             alert = self.driver.switch_to_alert()
@@ -47,11 +47,13 @@ class UntitledTestCase(unittest.TestCase):
             else:
                 alert.dismiss()
             return alert_text
-        finally: self.accept_next_alert = True
-    
+        finally:
+            self.accept_next_alert = True
+
     def tearDown(self):
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
+
 
 if __name__ == "__main__":
     unittest.main()
