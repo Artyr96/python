@@ -20,7 +20,7 @@ class UntitledTestCase(unittest.TestCase):
         driver.get("https://starkportal.solardigital.com.ua/login")
         driver.find_element_by_name("username").click()
         driver.find_element_by_name("username").clear()
-        driver.find_element_by_name("username").send_keys("Artu")
+        driver.find_element_by_name("username").send_keys("Artur")
         driver.find_element_by_xpath("//form[@action='https://starkportal.solardigital.com.ua/login']").click()
         driver.find_element_by_xpath("//button[@type='submit']").click()
         driver.find_element_by_xpath("//div[@id='app']/aside/div[2]/nav/ul/li[4]/button").click()
