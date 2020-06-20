@@ -1,17 +1,12 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-import unittest, time, re
+import unittest
 
 
 class AppDynamicsJob(unittest.TestCase):
     def setUp(self):
-        # AppDynamics will automatically override this web driver
-        # as documented in https://docs.appdynamics.com/display/PRO44/Write+Your+First+Script
         self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(30)
         self.base_url = "https://www.google.com/"
@@ -20,13 +15,41 @@ class AppDynamicsJob(unittest.TestCase):
 
     def test_app_dynamics_job(self):
         driver = self.driver
-        driver.get(
-            "https://www.google.com/search?q=%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D1%87%D0%B8%D0%BA&oq=%D0%BF%D0%B5%D1%80%D0%B5&aqs=chrome.0.69i59j69i57j69i59j0l5.2101j0j8&sourceid=chrome&ie=UTF-8")
-        driver.find_element_by_xpath("//div[@id='rso']/div[2]/div/div/a/h3").click()
-        driver.find_element_by_id("source").click()
-        driver.find_element_by_id("source").clear()
-        driver.find_element_by_id("source").send_keys(u"привет")
-        driver.find_element_by_xpath("//div/div[2]/div/div/div/div[2]/div/div/div[2]/div/div/div").click()
+        driver.get("https://starkportal.solardigital.com.ua/login")
+        self.login(driver)
+        self.add_user(driver)
+        #logout
+        driver.find_element_by_xpath("//div[@id='app']/aside/div[2]/div/div[2]/div/div/div/div").click()
+        driver.find_element_by_xpath("//button[@type='submit']").click()
+
+    def add_user(self, driver):
+        driver.find_element_by_xpath("//div[@id='app']/aside/div[2]/nav/ul/li[4]/button/span").click()
+        driver.find_element_by_link_text("Users").click()
+        driver.find_element_by_xpath("//div[@id='app']/header/div/div/button").click()
+        driver.find_element_by_name("name").click()
+        driver.find_element_by_name("name").clear()
+        driver.find_element_by_name("name").send_keys("123")
+        driver.find_element_by_name("username").click()
+        driver.find_element_by_name("username").clear()
+        driver.find_element_by_name("username").send_keys("1231")
+        driver.find_element_by_name("password").click()
+        driver.find_element_by_name("password").clear()
+        driver.find_element_by_name("password").send_keys("321")
+        driver.find_element_by_xpath(
+            "//div[@id='app']/main/form/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div").click()
+        driver.find_element_by_xpath(
+            "//div[@id='app']/main/form/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div[3]/ul/li/span").click()
+        driver.find_element_by_xpath("(//button[@type='submit'])[2]").click()
+
+    def login(self, driver):
+        driver.find_element_by_name("username").click()
+        driver.find_element_by_name("username").clear()
+        driver.find_element_by_name("username").send_keys("artur")
+        driver.find_element_by_xpath("//div/div").click()
+        driver.find_element_by_name("password").click()
+        driver.find_element_by_name("password").clear()
+        driver.find_element_by_name("password").send_keys("artur")
+        driver.find_element_by_xpath("//button[@type='submit']").click()
 
     def is_element_present(self, how, what):
         try:
@@ -55,8 +78,6 @@ class AppDynamicsJob(unittest.TestCase):
             self.accept_next_alert = True
 
     def tearDown(self):
-        # To know more about the difference between verify and assert,
-        # visit https://www.seleniumhq.org/docs/06_test_design_considerations.jsp#validating-results
         self.assertEqual([], self.verificationErrors)
 
 
