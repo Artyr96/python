@@ -14,23 +14,8 @@ class AppDynamicsJob(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
 
-    def test_app_dynamics_job_1(self):
-        driver = self.driver
+    def open_page(self, driver):
         driver.get("https://starkportal.solardigital.com.ua/login")
-        self.login(driver, username="artur", password="artur")
-        self.add_user(driver, New_user(name="te1", username="te1", password="321"))
-        #logout
-        driver.find_element_by_xpath("//div[@id='app']/aside/div[2]/div/div[2]/div/div/div/div").click()
-        driver.find_element_by_xpath("//button[@type='submit']").click()
-
-    def test_app_dynamics_job_2(self):
-        driver = self.driver
-        driver.get("https://starkportal.solardigital.com.ua/login")
-        self.login(driver, username="artur", password="artur")
-        self.add_user(driver, New_user(name="te2", username="te2", password="321"))
-        #logout
-        driver.find_element_by_xpath("//div[@id='app']/aside/div[2]/div/div[2]/div/div/div/div").click()
-        driver.find_element_by_xpath("//button[@type='submit']").click()
 
     def add_user(self, driver, new_user):
         driver.find_element_by_xpath("//div[@id='app']/aside/div[2]/nav/ul/li[4]/button/span").click()
@@ -51,25 +36,6 @@ class AppDynamicsJob(unittest.TestCase):
             "//div[@id='app']/main/form/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div[3]/ul/li/span").click()
         driver.find_element_by_xpath("(//button[@type='submit'])[2]").click()
 
-        def add_user(self, driver, name, username, password):
-            driver.find_element_by_xpath("//div[@id='app']/aside/div[2]/nav/ul/li[4]/button/span").click()
-            driver.find_element_by_link_text("Users").click()
-            driver.find_element_by_xpath("//div[@id='app']/header/div/div/button").click()
-            driver.find_element_by_name("name").click()
-            driver.find_element_by_name("name").clear()
-            driver.find_element_by_name("name").send_keys(name)
-            driver.find_element_by_name("username").click()
-            driver.find_element_by_name("username").clear()
-            driver.find_element_by_name("username").send_keys(username)
-            driver.find_element_by_name("password").click()
-            driver.find_element_by_name("password").clear()
-            driver.find_element_by_name("password").send_keys(password)
-            driver.find_element_by_xpath(
-                "//div[@id='app']/main/form/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div").click()
-            driver.find_element_by_xpath(
-                "//div[@id='app']/main/form/div/div[2]/div/div[4]/div/div[2]/div/div/div/div/div[3]/ul/li/span").click()
-            driver.find_element_by_xpath("(//button[@type='submit'])[2]").click()
-
     def login(self, driver, username, password):
         driver.find_element_by_name("username").click()
         driver.find_element_by_name("username").clear()
@@ -79,6 +45,24 @@ class AppDynamicsJob(unittest.TestCase):
         driver.find_element_by_name("password").clear()
         driver.find_element_by_name("password").send_keys(password)
         driver.find_element_by_xpath("//button[@type='submit']").click()
+
+    def logout(self, driver):
+        driver.find_element_by_xpath("//div[@id='app']/aside/div[2]/div/div[2]/div/div/div/div").click()
+        driver.find_element_by_xpath("//button[@type='submit']").click()
+
+    def test_app_dynamics_job_2(self):
+        driver = self.driver
+        self.open_page(driver)
+        self.login(driver, username="artur", password="artur")
+        self.add_user(driver, New_user(name="te2", username="te2", password="321"))
+        self.logout(driver)
+
+    def test_app_dynamics_job_1(self):
+        driver = self.driver
+        self.open_page(driver)
+        self.login(driver, username="artur", password="artur")
+        self.add_user(driver, New_user(name="te1", username="te1", password="321"))
+        self.logout(driver)
 
     def is_element_present(self, how, what):
         try:
