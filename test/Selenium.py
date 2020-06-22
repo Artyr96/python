@@ -10,12 +10,12 @@ def app(request):
     return fixture
 
 def test_app_dynamics_job_2(app):
-    app.login(username="artur", password="artur")
+    app.session.login(username="artur", password="artur")
     app.add_user( New_user(name="te2", username="te2", password="321"))
-    app.logout()
+    app.session.logout()
 
 def test_app_dynamics_job_1(app):
-    app.login(username="artur", password="artur")
+    app.session.login(username="artur", password="artur")
     app.add_user(New_user(name="te1", username="te1", password="321"))
-    app.logout()
+    app.session.logout()
 
