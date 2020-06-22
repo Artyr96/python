@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from new_user import New_user
-from application import Application
+from model.new_user import New_user
+from fixture.application import Application
 import pytest
 
 @pytest.fixture
