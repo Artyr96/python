@@ -6,7 +6,7 @@ class Application:
 
     def __init__(self):
         self.driver = webdriver.Chrome()
-        self.driver.implicitly_wait(60)
+        self.driver.implicitly_wait(10)
         self.session = SessionHelper(self)
         self.newuser = NuserHelper(self)
 
